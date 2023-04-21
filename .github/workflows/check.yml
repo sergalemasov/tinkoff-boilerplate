@@ -12,6 +12,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
+      - name: Node check
+        run: node -v
       - name: Clean install
         run: npm ci
       - name: Test
