@@ -3,7 +3,6 @@ import {
     Outlet,
     Link,
     createBrowserRouter,
-    RouterProvider,
     useNavigation,
 } from "react-router-dom";
 
