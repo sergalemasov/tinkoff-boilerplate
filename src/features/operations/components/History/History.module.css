@@ -1,4 +1,4 @@
 .list {
-  max-height: 420px;
+  max-height: calc(100vh - 300px);
   overflow: auto;
 }

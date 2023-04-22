@@ -54,6 +54,11 @@ export const Filter:FC<Props> = ({onChange}) => {
         onChange({})
     }, [form, onChange])
 
+    const rangePickerRestrictions = useCallback((current: Dayjs) => {
+        // Can not select days before today and today
+        return current && current.valueOf() > Date.now();
+    }, [])
+
     const categories = useMemo(() => getCategoriesForSelect(), []);
 
     return <Form form={form} layout="vertical" onFieldsChange={onValid} onFinish={onValid} autoComplete="off">
@@ -73,6 +78,7 @@ export const Filter:FC<Props> = ({onChange}) => {
                     presets={rangePresets}
                     format="YYYY/MM/DD HH:mm:ss"
                     onChange={onRangeChange}
+                    disabledDate={rangePickerRestrictions}
                 />
             </Form.Item>
             <Form.Item label={' '}>
