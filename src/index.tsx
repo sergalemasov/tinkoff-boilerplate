@@ -4,13 +4,22 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import {RouterProvider} from "react-router-dom";
 import {router} from "./router";
+import { Provider } from "react-redux";
+
+import { store } from "@core/store/store";
+import { initializeAPI } from "@core/api/api";
+
+initializeAPI();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-      <RouterProvider router={router} fallbackElement={<p>Loading...</p>}/>;
+      <Provider store={store}>
+        <RouterProvider router={router} fallbackElement={<p>Loading...</p>}/>
+      </Provider>
   </React.StrictMode>
 );
 
