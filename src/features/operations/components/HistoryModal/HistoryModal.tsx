@@ -51,8 +51,6 @@ export const HistoryModal: FC<Props> = ({
             date: formData.date.format(DAY_FORMAT),
         };
 
-        console.log('data', data);
-
         if (operation?.id) {
             dispatch(updateOperation(operation.id, data)).then(() => {
                 message.success("Операция обновлена!");

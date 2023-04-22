@@ -37,7 +37,7 @@ export const Filter:FC<Props> = ({onChange}) => {
             from: formData?.dates?.[0]?.unix(),
             to: formData?.dates?.[1]?.unix(),
         }
-        console.log('xxx', formData, data);
+
         onChange(data);
     };
     const onRangeChange = (dates: null | (Dayjs | null)[], dateStrings: string[]) => {

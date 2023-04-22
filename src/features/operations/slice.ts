@@ -26,8 +26,6 @@ const operationsSlice = createSlice({
       const id = action.payload.id;
       const newOperation = action.payload.newOperation;
 
-      console.log('updatelist', newOperation, state.list)
-
       state.list = state.list.map((item) => {
         if (item.id === id) {
           return newOperation;
