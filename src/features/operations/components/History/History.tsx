@@ -20,21 +20,21 @@ export const History: FC<Props> = () => {
 
     const data = useMemo(() => {
         let data = operations;
-        if(filter.category) {
+        if (filter.category) {
             data = data.filter(i => i.category === filter.category);
         }
-        if(filter.from) {
+        if (filter.from) {
             data = data.filter((item) => {
-                if(filter.from) {
+                if (filter.from) {
                     return dayjs(item.date, DAY_FORMAT).unix() >= filter.from;
                 }
                 return true;
             })
         }
 
-        if(filter.to) {
+        if (filter.to) {
             data = data.filter((item) => {
-                if(filter.to) {
+                if (filter.to) {
                     return dayjs(item.date, DAY_FORMAT).unix() <= filter.to;
                 }
                 return true;
@@ -42,8 +42,6 @@ export const History: FC<Props> = () => {
         }
         return data;
     }, [operations, filter]);
-    console.log('operations with data', data, filter);
-
 
     return (
         <section>
