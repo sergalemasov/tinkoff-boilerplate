@@ -6,6 +6,7 @@ import {
 import {LayoutView} from "@core/layout/Layout";
 import {Cards} from "./pages/Cards/Cards";
 import {Operations} from "./pages/Operations/Operations";
+import {Dashboard} from "./pages/Dashboard/Dashboard";
 
 
 export const router = createBrowserRouter([
@@ -14,12 +15,16 @@ export const router = createBrowserRouter([
         element: <LayoutView />,
         children: [
             {
-                index: true,
+                path: 'cards',
                 element: <Cards />,
             },
             {
                 path: 'operations',
                 element: <Operations />,
+            },
+            {
+                index: true,
+                element: <Dashboard />,
             },
             {
                 path: "*",

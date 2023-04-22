@@ -51,7 +51,7 @@ export const HistoryListItem: FC<Props> = ({operation}) => {
                              style={{backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}`}}></div>
                     }
                     title={operation.name}
-                    description={operation.card?.number}
+                    description={operation.card?.number || 'карта закрыта'}
                 />
                 <div className={styles.data}>
                     <Typography.Text type={"secondary"}>

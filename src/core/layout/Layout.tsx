@@ -1,11 +1,12 @@
 import React, {useCallback, useEffect, useState} from 'react';
 
 import {
+    Link,
     Outlet,
     useNavigate,
 } from "react-router-dom";
 import {
-    CreditCardOutlined,
+    CreditCardOutlined, DashboardOutlined,
     TransactionOutlined,
 } from '@ant-design/icons';
 import type {MenuProps} from 'antd';
@@ -15,7 +16,7 @@ import {fetchCards} from "@features/cards/actions";
 import {useDispatch} from "react-redux";
 import {Dispatch} from "@core/store/store";
 
-const {Header, Content, Footer, Sider} = Layout;
+const {Content, Footer, Sider} = Layout;
 
 type MenuItem = Required<MenuProps>['items'][number] & {
     href?: string;
@@ -39,8 +40,10 @@ function getItem(
 
 const items: MenuItem[] = [
     // todo импортировать роуты и строить динамически
-    getItem('Карточки', '1', <CreditCardOutlined/>, undefined, '/'),
-    getItem('Операции', '2', <TransactionOutlined/>, undefined, '/operations'),
+    getItem('Дашборд', '1', <DashboardOutlined/>, undefined, '/'),
+    getItem('Карточки', '2', <CreditCardOutlined/>, undefined, '/cards'),
+    getItem('Операции', '3', <TransactionOutlined/>, undefined, '/operations'),
+
 ];
 
 export const LayoutView = () => {
@@ -70,19 +73,15 @@ export const LayoutView = () => {
     return (
         <Layout style={{minHeight: '100vh'}}>
             <Sider collapsible collapsed={collapsed} onCollapse={(value: any) => setCollapsed(value)}>
-                <div style={{height: 32, margin: 16, background: 'rgba(255, 255, 255, 0.2)'}}/>
                 <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} onClick={onMenuClick}/>
             </Sider>
             <Layout className="site-layout">
-                <Header style={{padding: 0, background: colorBgContainer}}>
-                    Header
-                </Header>
                 <Content style={{margin: '16px 16px'}}>
                     <div style={{padding: 24, minHeight: 360, background: colorBgContainer}}>
                         {loading ? <Spin size={'large'} /> :  <Outlet/>}
                     </div>
                 </Content>
-                <Footer style={{textAlign: 'center'}}>Ant Design ©2023 Created by Ant UED</Footer>
+                <Footer style={{textAlign: 'center'}}><Link target={'_blank'} to={'https://t.me/antonrez'}>@antonrez</Link></Footer>
             </Layout>
         </Layout>
     );

@@ -103,7 +103,7 @@ export const HistoryModal: FC<Props> = ({
                 <Form.Item
                     name="date"
                     label="Дата платежа"
-                    initialValue={dayjs(operation?.date || '', DAY_FORMAT)}
+                    initialValue={operation?.date ? dayjs(operation?.date, DAY_FORMAT): dayjs()}
                     rules={[{required: true}]}
                 >
                     <DatePicker format={DAY_FORMAT}/>

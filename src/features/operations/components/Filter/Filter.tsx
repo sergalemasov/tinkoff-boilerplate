@@ -1,18 +1,17 @@
 import {OperationCategory} from "@features/operations/types";
-import React, {FC, useMemo} from "react";
+import React, {FC, useCallback, useMemo} from "react";
 import {Button, DatePicker, Form, Select, Space} from "antd";
 import dayjs, {Dayjs} from "dayjs";
 import {getCategoriesForSelect} from "@features/operations/utils";
-import TransButton from "antd/es/_util/transButton";
 import {CloseOutlined} from "@ant-design/icons";
 const { RangePicker } = DatePicker;
 
 
-type FilterData = {
-    from: number,
-    to: number,
+export type FilterData = {
+    from?: number,
+    to?: number,
 
-    category: OperationCategory,
+    category?: OperationCategory,
 }
 
 type Props = {
@@ -33,19 +32,13 @@ export const Filter:FC<Props> = ({onChange}) => {
     const [form] = Form.useForm();
     const onValid = () => {
         const formData = form.getFieldsValue();
-        console.log('xxx', formData);
-    };
-
-    const onSubmit = () => {
-        form.submit();
-    };
-
-    const onChangeDatePicker = (date: Dayjs) => {
-        if (date) {
-            console.log('Date: ', date);
-        } else {
-            console.log('Clear');
+        const data:FilterData = {
+            category: formData.category,
+            from: formData?.dates?.[0]?.unix(),
+            to: formData?.dates?.[1]?.unix(),
         }
+        console.log('xxx', formData, data);
+        onChange(data);
     };
     const onRangeChange = (dates: null | (Dayjs | null)[], dateStrings: string[]) => {
         if (dates) {
@@ -56,9 +49,14 @@ export const Filter:FC<Props> = ({onChange}) => {
         }
     };
 
+    const clearForm = useCallback(() => {
+        form.resetFields();
+        onChange({})
+    }, [form, onChange])
+
     const categories = useMemo(() => getCategoriesForSelect(), []);
 
-    return <Form form={form} layout="vertical" onChange={onValid} onFinish={onValid} autoComplete="off">
+    return <Form form={form} layout="vertical" onFieldsChange={onValid} onFinish={onValid} autoComplete="off">
         <Space>
             <Form.Item
                 name="category"
@@ -67,7 +65,7 @@ export const Filter:FC<Props> = ({onChange}) => {
                 <Select options={categories} placeholder="Еда"/>
             </Form.Item>
             <Form.Item
-                name="category"
+                name="dates"
                 label="Даты операций"
             >
                 <RangePicker
@@ -76,11 +74,13 @@ export const Filter:FC<Props> = ({onChange}) => {
                     onChange={onRangeChange}
                 />
             </Form.Item>
-            <Button
-                type="default"
-                icon={<CloseOutlined />}
-                onClick={console.log}
-            />
+            <Form.Item label={' '}>
+                <Button
+                    type="default"
+                    icon={<CloseOutlined />}
+                    onClick={clearForm}
+                />
+            </Form.Item>
         </Space>
     </Form>
 }
