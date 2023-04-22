@@ -22,10 +22,10 @@ const rangePresets: {
     label: string;
     value: [Dayjs, Dayjs];
 }[] = [
-    { label: 'Last 7 Days', value: [dayjs().add(-7, 'd'), dayjs()] },
-    { label: 'Last 14 Days', value: [dayjs().add(-14, 'd'), dayjs()] },
-    { label: 'Last 30 Days', value: [dayjs().add(-30, 'd'), dayjs()] },
-    { label: 'Last 90 Days', value: [dayjs().add(-90, 'd'), dayjs()] },
+    { label: 'Последние 7 дней', value: [dayjs().add(-7, 'd'), dayjs()] },
+    { label: 'Последние 14 дней', value: [dayjs().add(-14, 'd'), dayjs()] },
+    { label: 'Последние 30 дней', value: [dayjs().add(-30, 'd'), dayjs()] },
+    { label: 'Последние 90 дней', value: [dayjs().add(-90, 'd'), dayjs()] },
 ];
 
 export const Filter:FC<Props> = ({onChange}) => {
@@ -69,6 +69,7 @@ export const Filter:FC<Props> = ({onChange}) => {
                 label="Даты операций"
             >
                 <RangePicker
+                    placeholder={['От', 'До']}
                     presets={rangePresets}
                     format="YYYY/MM/DD HH:mm:ss"
                     onChange={onRangeChange}
@@ -76,6 +77,7 @@ export const Filter:FC<Props> = ({onChange}) => {
             </Form.Item>
             <Form.Item label={' '}>
                 <Button
+                    placeholder={'Очистить'}
                     type="default"
                     icon={<CloseOutlined />}
                     onClick={clearForm}

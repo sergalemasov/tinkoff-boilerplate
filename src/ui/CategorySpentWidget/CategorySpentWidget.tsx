@@ -4,6 +4,7 @@ import {FC, useMemo} from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import {getCategoriesForSelect} from "@features/operations/utils";
+import styles from './CategorySpentWidget.module.css';
 
 type Props = {
     items: OperationAPI[];
@@ -41,8 +42,6 @@ const borderColors = [
                 total: categoryTotal,
             }
         }).filter(i => i.total > 0);
-
-        console.log(categoryItems, total);
         return {
             labels: categoryItems.map(c => c.category.label),
             datasets: [
@@ -56,11 +55,11 @@ const borderColors = [
             ],
         };
     }, [items]);
-
-    console.log('xxx', data);
     return <Card>
         <Typography.Title level={3}>Траты по категориям</Typography.Title>
-        <Pie data={data} />
+        <div className={styles.pieContainer}>
+            <Pie data={data} />
+        </div>
     </Card>
 }
 
